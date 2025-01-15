@@ -1,8 +1,8 @@
-#define BLYNK_PRINT Serial
+#define BLYNK_PRINT Serial 
 
 #define BLYNK_TEMPLATE_ID "TMPL65suP-UJ-"
 #define BLYNK_TEMPLATE_NAME "Protject4"
-#define BLYNK_AUTH_TOKEN "lv4hd8Hz5O34MpWaYm6FM9_QYtWdo0jk"
+#define BLYNK_AUTH_TOKEN "lv4hd8Hz5O34MpWaYm6FM9_QYtWdo0jk" //ให้รู้ว่าโค้ดนี้เชื่อมต่อกับบลิ้ง
 
 #include <Servo.h>  
 #include <SPI.h>
@@ -10,7 +10,7 @@
 #include <BlynkSimpleWifi.h>
 
 
-const int motorLeft1 = 0;  // IN1
+const int motorLeft1 = 0;  // IN1 
 const int motorLeft2 = 1;  // IN2
 const int motorRight1 = 2; // IN3
 const int motorRight2 = 3; // IN4
@@ -24,16 +24,19 @@ const int motor2Right2 = 7; // IN4
 const int enable2A = 12;     // ENA (PWM)
 const int enable2B = 13;    // ENB (PWM)
 
+// const คือตั้งขาพินให้เป็นขานั้นตลอดเวลา
+// int จนเต็ม float ทศนิยม
+
 Servo servo1;  
 Servo servo2;  
-
+// เอาไว้เชื่อมแอพ
 
 char ssid[] = "Nathan_Ip";
 char pass[] = "aabbccdd12";
 
 
 BLYNK_WRITE(V0) {
-  int val = param.asInt();
+  int val = param.asInt(); // val คือ binary param.asInt แปลจาก virtual pin เป็น int
   if (val == 1) {
     digitalWrite(motorLeft1, HIGH);
     digitalWrite(motorLeft2, LOW);
@@ -117,6 +120,7 @@ BLYNK_WRITE(V3) {
 
   }
 }
+//ประตูแต่ทำไม่เสร็จ servo ไม่ไหว
 
 void setup() {
   pinMode(motorLeft1, OUTPUT);
@@ -138,10 +142,14 @@ void setup() {
 
   analogWrite(enable2A, 200);
   analogWrite(enable2B, 200);
+
+  //analogwrite คือตั้งความแรงว่าเอาเท่านี้นะๆ
   
   servo1.attach(6);
   servo2.attach(11);
+  //เชื่อม motor driver module
   Serial.begin(9600);
+  //ทำให้สื่อสารได้
   Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
 }
 
